@@ -1,28 +1,27 @@
-import express from 'express';
-import dotenv from 'dotenv'
-import colors from 'colors'
-import router from './routes/goalRoutes.js';
-import { errorHandler } from './middleware/errorMiddleware.js';
-import { connectDB } from './config/db.js';
+import express from "express";
+import dotenv from "dotenv";
+import colors from "colors";
+import router1 from "./routes/goalRoutes.js";
+import router2 from "./routes/userRoutes.js";
+import { errorHandler } from "./middleware/errorMiddleware.js";
+import { connectDB } from "./config/db.js";
 
-dotenv.config()
-
+dotenv.config();
 
 const port = process.env.PORT || 5000;
 
-connectDB()
+connectDB();
 
 const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/goals', router)
+app.use("/api/goals", router1);
+app.use("/api/users", router2);
 
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-})
-
-
+  console.log(`Server started on port ${port}`);
+});
